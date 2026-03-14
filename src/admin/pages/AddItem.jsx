@@ -31,9 +31,6 @@ export default function AddItem() {
 
   const handleSubmit = async () => {
     if (!form.image) return setError("Please upload product image");
-    if (!form.name) return setError("Product name is required");
-    if (!form.category) return setError("Please select category");
-    if (!form.price) return setError("Product price is required");
 
     try {
       const formData = new FormData();
@@ -43,10 +40,13 @@ export default function AddItem() {
       formData.append("price", form.price);
       formData.append("image", form.image);
 
-      const res = await api.post("/api/food/add-food", formData);
+      const res = await api.post("/api/food/add-food", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (res.data.success) {
-        // alert("✅ Food Item Added");
         setForm({
           name: "",
           description: "",
@@ -55,11 +55,8 @@ export default function AddItem() {
           image: null,
           preview: null,
         });
-      } else {
-        setError(res.data.message);
       }
-    } catch (err) {
-      console.error(err);
+    } catch () {
       setError("Server error while adding item");
     }
   };
