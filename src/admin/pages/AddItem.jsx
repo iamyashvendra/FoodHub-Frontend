@@ -33,30 +33,32 @@ export default function AddItem() {
     if (!form.image) return setError("Please upload product image");
 
     try {
-      const formData = new FormData();
-      formData.append("name", form.name);
-      formData.append("description", form.description);
-      formData.append("category", form.category);
-      formData.append("price", form.price);
-      formData.append("image", form.image);
+  const formData = new FormData();
+  formData.append("name", form.name);
+  formData.append("description", form.description);
+  formData.append("category", form.category);
+  formData.append("price", form.price);
+  formData.append("image", form.image);
 
-      const res = await api.post("/api/food/add-food", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+  const res = await api.post("/api/food/add-food", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
-      if (res.data.success) {
-        setForm({
-          name: "",
-          description: "",
-          category: "",
-          price: "",
-          image: null,
-          preview: null,
-        });
-      }
-    } catch (err) {
+  if (res.data.success) {
+    setForm({
+      name: "",
+      description: "",
+      category: "",
+      price: "",
+      image: null,
+      preview: null,
+    });
+  } else {
+    setError(res.data.message);
+  }
+} catch (err) {
   console.error(err);
   setError("Server error while adding item");
 }
