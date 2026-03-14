@@ -56,10 +56,10 @@ export default function AddItem() {
           preview: null,
         });
       }
-    } catch () {
-      setError("Server error while adding item");
-    }
-  };
+    } catch (err) {
+  console.error(err);
+  setError("Server error while adding item");
+}
 
   const inputClass =
     "w-full border dark:border-gray-600 px-3 py-2 rounded-lg " +
