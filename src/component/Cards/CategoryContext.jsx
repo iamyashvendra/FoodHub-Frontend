@@ -146,21 +146,22 @@ export const CategoryProvider = ({ children }) => {
 
   return (
     <CategoryContext.Provider
-      value={{
-        active,
-        setActive,
-        searchQuery,
-        setSearchQuery,
-        filtered,
-        food_list,
-        cart,
-        toggleCart,
-        increaseQty,
-        decreaseQty,
-        token,
-        setToken,
-      }}
-    >
+  value={{
+    active,
+    setActive,
+    searchQuery,
+    setSearchQuery,
+    filtered,
+    food_list,
+    cart,
+    toggleCart,
+    increaseQty,
+    decreaseQty,
+    token,
+    setToken,
+    url: api.defaults.baseURL
+  }}
+>
       {children}
     </CategoryContext.Provider>
   );
